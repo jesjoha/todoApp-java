@@ -62,7 +62,7 @@ public class ToDoList {
      * @param task The task to mark as completed.
      */
     public void markTaskAsCompleted(Task task) {
-        task.setCompleted(true);
+        task.setCompleted();
     }
 
 
