@@ -12,7 +12,7 @@ public class AppLauncher extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AppLauncher.class.getResource("main-window.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        stage.setTitle("To-Do List Application");
         stage.setScene(scene);
         stage.show();
     }

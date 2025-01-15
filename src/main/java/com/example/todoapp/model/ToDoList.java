@@ -65,5 +65,13 @@ public class ToDoList {
         task.setCompleted();
     }
 
+    /**
+     * Method for unmarking a task that has previously been marked as completed.
+     * @param task The task to unmark.
+     */
+    public void unmarkAsCompleted(Task task) {
+        task.setUncompleted();
+    }
+
 
 }
