@@ -8,10 +8,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AppLauncher extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AppLauncher.class.getResource("main-window.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         stage.setTitle("To-Do List Application");
         stage.setScene(scene);
         stage.show();
@@ -20,4 +21,5 @@ public class AppLauncher extends Application {
     public static void main(String[] args) {
         launch();
     }
+
 }

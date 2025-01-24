@@ -8,10 +8,11 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="552.0" prefWidth="821.0" spacing="20.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.todoapp.TodoController">
+<VBox alignment="CENTER" prefHeight="552.0" prefWidth="821.0" spacing="20.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.todoapp.TodoController">
   <padding>
     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
   </padding>
@@ -38,15 +39,17 @@
           </Menu>
         </menus>
       </MenuBar>
-      <HBox spacing="100.0">
+      <HBox spacing="25.0">
          <children>
-            <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
+            <Button mnemonicParsing="false" onAction="#addNewList" text="New List" />
+            <Button mnemonicParsing="false" onAction="#editListTitle" text="Edit List Title" />
+            <Button mnemonicParsing="false" onAction="#removeList" text="Delete List" />
+            <TextField fx:id="textField" />
          </children>
       </HBox>
       <HBox prefHeight="493.0" prefWidth="781.0">
          <children>
-            <ListView fx:id="todoListView" prefHeight="465.0" prefWidth="246.0" />
+            <ListView fx:id="toDoListListView" prefHeight="465.0" prefWidth="246.0" />
             <TableView fx:id="taskTable" prefHeight="200.0" prefWidth="200.0">
               <columns>
                 <TableColumn fx:id="checkBoxColumn" prefWidth="33.0" sortable="false" />

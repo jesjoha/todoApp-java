@@ -7,11 +7,9 @@ public class ToDoList {
 
     private List<Task> toDoList;
     private String title;
-    private String description;
 
-    public ToDoList(String title, String description) {
+    public ToDoList(String title) {
         this.title = title;
-        this.description = description;
         toDoList = new ArrayList<>();
     }
 
@@ -31,14 +29,6 @@ public class ToDoList {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     /**
@@ -73,5 +63,8 @@ public class ToDoList {
         task.setUncompleted();
     }
 
-
+    @Override
+    public String toString() {
+        return title;
+    }
 }
