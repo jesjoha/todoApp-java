@@ -12,6 +12,8 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 import java.util.ArrayList;
@@ -92,6 +94,45 @@ public class TodoController {
     }
 
     @FXML
+    protected void editTask() {
+        Task selectedTask = taskList.getSelectionModel().getSelectedItem();
+        if (selectedTask != null) {
+            String newDescription = editTaskDescription(selectedTask);
+            selectedTask.setDescription(newDescription);
+            updateTaskList(toDoListListView.getSelectionModel().getSelectedItem());
+        }
+    }
+
+    @FXML
+    protected void moveDown() {
+        ToDoList activeList = toDoListListView.getSelectionModel().getSelectedItem();
+        Task selectedTask = taskList.getSelectionModel().getSelectedItem();
+        int taskIndex = activeList.getToDoList().indexOf(selectedTask);
+
+        if (selectedTask != null &&  taskIndex < activeList.getToDoList().size()-1) {
+            Task nextTask = activeList.getToDoList().remove(taskIndex+1);
+            Task placeholder = activeList.getToDoList().remove(taskIndex);
+            activeList.getToDoList().add(taskIndex, nextTask);
+            activeList.getToDoList().add(taskIndex+1, placeholder);
+            updateTaskList(activeList);
+        }
+    }
+
+    @FXML
+    protected void moveUp() {
+        ToDoList activeList = toDoListListView.getSelectionModel().getSelectedItem();
+        Task selectedTask = taskList.getSelectionModel().getSelectedItem();
+        int taskIndex = activeList.getToDoList().indexOf(selectedTask);
+        if (selectedTask != null &&  taskIndex > 0) {
+            Task placeholder = activeList.getToDoList().remove(taskIndex);
+            Task taskAbove = activeList.getToDoList().remove(taskIndex-1);
+            activeList.getToDoList().add(taskIndex-1,placeholder);
+            activeList.getToDoList().add(taskIndex, taskAbove);
+            updateTaskList(activeList);
+        }
+    }
+
+    @FXML
     public void initialize() {
         toDoListListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ToDoList>() {
             @Override
@@ -144,6 +185,19 @@ public class TodoController {
         return result.get();
     }
 
+    private String editTaskDescription(Task task) {
+        TextInputDialog dialog = new TextInputDialog(task.getDescription());
+        dialog.setTitle("Edit Task");
+        dialog.setHeaderText("Edit Task");
+        dialog.setContentText("Please enter the description of the task you would like to edit");
+        Optional<String> result = dialog.showAndWait();
+        String resultString = dialog.getResult();
+        if (resultString == null || result.get().isEmpty()) {
+            return null;
+        }
+        return result.get();
+    }
+
     private void updateListView() {
         ObservableList<ToDoList> observableToDoList = FXCollections.observableArrayList(listOfLists);
         toDoListListView.setItems(observableToDoList);
@@ -159,6 +213,7 @@ public class TodoController {
                     BooleanProperty obs = new SimpleBooleanProperty();
                     obs.addListener((observable, wasSelected, isNowSelected) ->
                             System.out.println("Checkbox for "+task+" changed from "+wasSelected+ " to " + isNowSelected));
+
                     return obs;
                 }
             }));
