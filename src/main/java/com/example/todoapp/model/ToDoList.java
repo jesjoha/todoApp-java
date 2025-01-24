@@ -52,7 +52,7 @@ public class ToDoList {
      * @param task The task to mark as completed.
      */
     public void markTaskAsCompleted(Task task) {
-        task.setCompleted();
+        task.setCompleted(true);
     }
 
     /**
@@ -60,7 +60,7 @@ public class ToDoList {
      * @param task The task to unmark.
      */
     public void unmarkAsCompleted(Task task) {
-        task.setUncompleted();
+        task.setCompleted(false);
     }
 
     @Override

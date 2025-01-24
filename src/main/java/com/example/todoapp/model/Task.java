@@ -1,43 +1,53 @@
 package com.example.todoapp.model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Task {
 
-    private String title;
-    private String description;
-    private boolean completed;
+    private StringProperty description;
+    private BooleanProperty completed;
 
-    public Task(String title, String description) {
-        this.title = title;
-        this.description = description;
-        completed = false;
+    public Task(String description) {
+        descriptionProperty().set(description);
+        completedProperty().set(false);
     }
+
+
 
     // getters and setters
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getDescription() {
-        return description;
+        return descriptionProperty().get();
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        descriptionProperty().set(description);
+    }
+
+    public StringProperty descriptionProperty() {
+        if (description == null) description = new SimpleStringProperty(this, "description");
+        return description;
     }
 
     public boolean isCompleted() {
+        return completedProperty().get();
+    }
+
+    public void setCompleted(boolean completed) {
+        completedProperty().set(completed);
+    }
+
+    public BooleanProperty completedProperty() {
+        if (completed == null) completed = new SimpleBooleanProperty(this, "completed");
         return completed;
     }
 
-    public void setCompleted() {
-        completed = true;
-    }
-    public void setUncompleted() {
-        completed = false;
+    @Override
+    public String toString() {
+        return descriptionProperty().get();
     }
 }
