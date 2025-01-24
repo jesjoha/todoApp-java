@@ -49,8 +49,13 @@
          <children>
             <ListView fx:id="toDoListListView" prefHeight="422.0" prefWidth="163.0" />
             <ListView fx:id="taskList" prefHeight="422.0" prefWidth="311.0" />
-            <Button mnemonicParsing="false" onAction="#createTask" text="Add Task" />
-            <Button mnemonicParsing="false" onAction="#removeTask" text="Remove Task" />
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#createTask" prefHeight="25.0" prefWidth="71.0" text="Add Task" />
+                  <Button mnemonicParsing="false" onAction="#removeTask" text="Remove Task" />
+                  <Button mnemonicParsing="false" text="Edit Task" />
+               </children>
+            </VBox>
          </children></HBox>
    </children>
 </VBox>
