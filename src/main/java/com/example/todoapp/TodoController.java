@@ -214,7 +214,7 @@ public class TodoController {
                     obs.addListener((observable, wasSelected, isNowSelected) ->
                             System.out.println("Checkbox for "+task+" changed from "+wasSelected+ " to " + isNowSelected));
 
-                    return obs;
+                    return task.completedProperty();
                 }
             }));
             taskList.setItems(observableTaskList);
