@@ -5,7 +5,13 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Task {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Task implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private StringProperty description;
     private BooleanProperty completed;

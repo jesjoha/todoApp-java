@@ -141,6 +141,7 @@ public class TodoController {
                 System.out.println("Selected list: " + newlySelectedList);
             }
         });
+
     }
 
 
