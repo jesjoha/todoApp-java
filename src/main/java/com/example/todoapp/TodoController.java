@@ -144,7 +144,10 @@ public class TodoController {
 
     }
 
-
+    /**
+     * Method for getting the new list name from the user.
+     * @return returns the new list name if entered. Else return null.
+     */
     private String getNewListName() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Add New List");
