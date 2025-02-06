@@ -162,6 +162,11 @@ public class TodoController {
         return null;
     }
 
+    /**
+     * Method for editing the list title with a user specified title.
+     * @param list the list which title the user wants to edit.
+     * @return the edited title. If left unedited the old title is returned.
+     */
     private String editListTitle(ToDoList list) {
         TextInputDialog dialog = new TextInputDialog(list.getTitle());
         dialog.setTitle("Edit Title");
