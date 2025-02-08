@@ -54,8 +54,8 @@
                   <Button mnemonicParsing="false" onAction="#createTask" prefHeight="25.0" prefWidth="100.0" text="Add Task" />
                   <Button mnemonicParsing="false" onAction="#removeTask" text="Remove Task" />
                   <Button mnemonicParsing="false" onAction="#editTask" prefWidth="100.0" text="Edit Task" />
-                  <Button mnemonicParsing="false" onAction="#moveDown" prefWidth="100.0" text="Move Down" />
                   <Button layoutX="10.0" layoutY="83.0" mnemonicParsing="false" onAction="#moveUp" prefWidth="100.0" text="Move Up" />
+                  <Button mnemonicParsing="false" onAction="#moveDown" prefWidth="100.0" text="Move Down" />
                </children>
             </VBox>
          </children></HBox>

@@ -149,7 +149,7 @@ public class TodoController {
             out.writeObject(listOfLists);
             out.close();
             file.close();
-            System.out.println("The lists has been saved.");
+            System.out.println("The lists have been saved.");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -167,7 +167,6 @@ public class TodoController {
         });
         loadFromFile();
         updateListView();
-        checkBoxClick();
 
     }
 
@@ -245,9 +244,9 @@ public class TodoController {
             ObservableList<Task> observableTaskList = FXCollections.observableArrayList(list.getToDoList());
             checkBoxClick();
             taskList.setItems(observableTaskList);
-            for (Task task : list.getToDoList()) {
-                System.out.println(task.getDescription()+ " - Completed: " + task.isCompleted() + " -- done: " + task.isDone());
-            }
+//            for (Task task : list.getToDoList()) {
+//                System.out.println(task.getDescription()+ " - Completed: " + task.isCompleted() + " -- done: " + task.isDone());
+//            }
         }
 
     }
