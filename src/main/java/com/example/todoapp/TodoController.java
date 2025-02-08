@@ -16,6 +16,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
+import java.io.*;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -133,6 +135,28 @@ public class TodoController {
     }
 
     @FXML
+    protected void saveDefault() {
+        ToDoList selectedList = toDoListListView.getSelectionModel().getSelectedItem();
+        if (selectedList != null) {
+            updateTaskList(selectedList);
+        }
+        try {
+            String fileName = "default.ser";
+            String filePath = Paths.get(System.getProperty("user.home"), "Documents",fileName).toString();
+            FileOutputStream file = new FileOutputStream(filePath);
+            ObjectOutputStream out = new ObjectOutputStream(file);
+
+            out.writeObject(listOfLists);
+            out.close();
+            file.close();
+            System.out.println("The lists has been saved.");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @FXML
     public void initialize() {
         toDoListListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ToDoList>() {
             @Override
@@ -141,6 +165,9 @@ public class TodoController {
                 System.out.println("Selected list: " + newlySelectedList);
             }
         });
+        loadFromFile();
+        updateListView();
+        checkBoxClick();
 
     }
 
@@ -216,17 +243,49 @@ public class TodoController {
     private void updateTaskList(ToDoList list) {
         if (list != null) {
             ObservableList<Task> observableTaskList = FXCollections.observableArrayList(list.getToDoList());
-            taskList.setCellFactory(CheckBoxListCell.forListView(new Callback<Task, ObservableValue<Boolean>>() {
-                @Override
-                public ObservableValue<Boolean> call(Task task) {
-                    BooleanProperty obs = new SimpleBooleanProperty();
-                    obs.addListener((observable, wasSelected, isNowSelected) ->
-                            System.out.println("Checkbox for "+task+" changed from "+wasSelected+ " to " + isNowSelected));
-
-                    return task.completedProperty();
-                }
-            }));
+            checkBoxClick();
             taskList.setItems(observableTaskList);
+            for (Task task : list.getToDoList()) {
+                System.out.println(task.getDescription()+ " - Completed: " + task.isCompleted() + " -- done: " + task.isDone());
+            }
+        }
+
+    }
+
+    private void checkBoxClick() {
+        taskList.setCellFactory(CheckBoxListCell.forListView(new Callback<Task, ObservableValue<Boolean>>() {
+            @Override
+            public ObservableValue<Boolean> call(Task task) {
+                BooleanProperty obs = new SimpleBooleanProperty();
+                obs.addListener((observable, wasSelected, isNowSelected) ->
+                        System.out.println("Checkbox for "+observable+" changed from "+wasSelected+ " to " + isNowSelected));
+
+                task.updateDone();
+
+                return task.completedProperty();
+            }
+        }));
+    }
+
+    private void loadFromFile() {
+        String fileName = "default.ser";
+        String filePath = Paths.get(System.getProperty("user.home"), "Documents",fileName).toString();
+
+        try {
+            FileInputStream file = new FileInputStream(filePath);
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            listOfLists = (List<ToDoList>) in.readObject();
+            in.close();
+            file.close();
+
+            for (ToDoList list : listOfLists) {
+                for (Task task : list.getToDoList()) {
+                    task.setCompleted(task.isDone());
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }

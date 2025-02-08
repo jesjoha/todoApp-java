@@ -13,12 +13,16 @@ public class Task implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private StringProperty description;
-    private BooleanProperty completed;
+    private String description;
+    private transient BooleanProperty completed;
+
+    private boolean done;
+
 
     public Task(String description) {
-        descriptionProperty().set(description);
+        this.description = description;
         completedProperty().set(false);
+        done = false;
     }
 
 
@@ -27,17 +31,13 @@ public class Task implements Serializable {
 
 
     public String getDescription() {
-        return descriptionProperty().get();
+        return description;
     }
 
     public void setDescription(String description) {
-        descriptionProperty().set(description);
+        this.description = description;
     }
 
-    public StringProperty descriptionProperty() {
-        if (description == null) description = new SimpleStringProperty(this, "description");
-        return description;
-    }
 
     public boolean isCompleted() {
         return completedProperty().get();
@@ -52,8 +52,15 @@ public class Task implements Serializable {
         return completed;
     }
 
+    public void updateDone() {
+        this.done = completed.get();
+    }
+    public boolean isDone() {
+        return done;
+    }
+
     @Override
     public String toString() {
-        return descriptionProperty().get();
+        return description;
     }
 }
